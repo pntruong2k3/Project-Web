@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Ogani Template">
+<meta name="keywords" content="Ogani, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Ogani | Template</title>
+
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg ">
+		<div class="navbar_left">
+			<a class="navbar-brand" href="/admin/">Quản lý bán hàng</a>
+		</div>
+		<div class="navbar_right">
+			<a href="/thoat"> Đăng Xuất </a>
+		</div>
+
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav class="nav_bar_1 col-md-2 d-none d-md-block sidebar">
+				<div class="sidebar-sticky">
+					<ul class="nav flex-column">
+						<li class="nav-item"><a class="nav-link active"
+							href="/admin/"> <span data-feather="home"></span> <i
+								class="fa fa-home mr-1" style="font-size: 18px"></i> Trang chủ
+						</a></li>
+						<li class="nav-item"><a class="nav-link active"
+							href="/admin/user"> <span data-feather="home"></span> <i
+								class="fa fa-user mr-1" style="font-size: 18px"></i> Tài Khoản
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/admin/category"> <span data-feather="shopping-cart"></span>
+								<i class="fa fa-dedent mr-1" style="font-size: 18px"></i> Danh
+								Mục
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="/admin/product"> <span data-feather="file"></span> <i
+								class="fa fa-shopping-bag mr-1" style="font-size: 18px"></i> Sản
+								Phẩm
+						</a></li>
+						<li class="nav-item"><a class="nav-link" href="/admin/order">
+								<span data-feather="users"></span> <i
+								class="fa fa-cart-arrow-down mr-1 " style="font-size: 18px"></i>
+								Đơn Hàng
+						</a></li>
+						<li><a th:href="@{/home}">Quay lại trang mua sắm</a></li>
+
+					</ul>
+				</div>
+			</nav>
+
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+				<div class="container">
+
+						<h2>Danh sách sản phẩm</h2>
+
+
+					<form class="form pb-3" th:action="@{/admin/product}" method="get">
+						<input type="text" name="name" th:value="${name}"
+							placeholder="Tìm theo tên sản phẩm" />
+						<button type="submit">Search</button>
+						<a class="ml-5 a_form" href="/admin/productDetails">Thông tin chi
+							tiết sản phẩm</a>
+					</form>
+					<div class="row">
+						<div class="col-2">
+							<h5>Sắp xếp theo:</h5>
+						</div>
+						<a
+							th:href="@{/admin/product(sortField='id',  sortDirection=${sortDirection}, name=${name}, pageSize=${productPage.size},  page=${productPage.number})}"
+							class="mr-5">ID</a> <a
+							th:href="@{/admin/product(sortField='name',  sortDirection=${sortDirection}, name=${name}, pageSize=${productPage.size},  page=${productPage.number})}" class="mr-5">Tên
+							sản phẩm</a> <a
+							th:href="@{/admin/product(sortField='quantity',  sortDirection=${sortDirection}, name=${name}, pageSize=${productPage.size},  page=${productPage.number})}" class="mr-5">Số
+							lượng</a> <a
+							th:href="@{/admin/product(sortField='quantity',  sortDirection=${sortDirection}, name=${name}, pageSize=${productPage.size},  page=${productPage.number})}">
+							Giá
+							</a>
+
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<a
+							th:href="@{/admin/product(sortField=${sortField},  sortDirection='asc', name=${name}, pageSize=${productPage.size},  page=${productPage.number})}"
+							class="mr-5">Tăng dần</a> <a
+							th:href="@{/admin/product(sortField=${sortField},  sortDirection='desc', name=${name}, pageSize=${productPage.size},  page=${productPage.number})}">Giảm
+							dần</a>
+					</div>
+					<table class="table table-striped table-bordered table-sm"
+						cellspacing="0" width="100%">
+						<thead class="thead-dark">
+							<tr>
+								<th><a
+									th:href="@{/admin/product(sortField='id',  sortDirection=${sortDirection}, name=${name}, pageSize=${productPage.size},  page=${productPage.number})}"
+									class="th-sm">ID</a></th>
+								<th><a
+									th:href="@{/admin/product(sortField='name',  sortDirection=${sortDirection}, name=${name}, pageSize=${productPage.size},  page=${productPage.number})}"
+									class="th-sm">Tên sản phẩm</a></th>
+								<th class="th-sm">Hình ảnh</th>
+								<th class="th-sm">Khối lượng</th>
+								<th><a
+									th:href="@{/admin/product(sortField='quantity', sortDirection=${sortDirection}, name=${name}, pageSize=${productPage.size},  page=${productPage.number})}"
+									class="th-sm">Số lượng</a>
+									<th class="th-sm">Giá</th>
+								<th class="th-sm">Danh mục</th>
+								<th class="th-sm">Cập nhật</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="product : ${productPage}">
+								<td th:text="${product.id}"></td>
+								<td th:text="${product.name}"></td>
+								<td><img class="width img_product1"
+									th:src="@{'data:image/png;base64,' + ${product.img}}" alt="Ảnh"></td>
+								<td th:text="${product.unit}"></td>
+								<td th:text="${product.quantity}"></td>
+								<td th:text="${product.price}"></td>
+								<td th:text="${product.category.name}"></td>
+								<td><a th:href="@{'/admin/product/edit/' + ${product.id}}">Chỉnh
+										sửa</a> || <a
+									th:href="@{'/admin/product/delete/' + ${product.id}}">Xóa</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<div>
+						<ul class="pagination">
+							<li class="page-item" th:if="${productPage.number > 0}"><a
+								th:href="@{/admin/product(page=0, sortDirection=${sortDirection}, sortField=${sortField},  name=${name})}">First</a>
+							</li>
+							<li class="page-item" th:if="${productPage.hasPrevious()}"><a
+								th:href="@{/admin/product(page=${productPage.number - 1}, sortDirection=${sortDirection}, sortField=${sortField}, name=${name})}">Previous</a>
+							</li>
+							<li class="page-item"
+								th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}">
+								<a
+								th:href="@{/admin/product(page=${i}, sortDirection=${sortDirection}, sortField=${sortField}, name=${name})}"
+								th:classappend="${i == productPage.number ? 'active' : ''}"
+								th:text="${i + 1}"></a>
+							</li>
+							<li class="page-item" th:if="${productPage.hasNext()}"><a
+								th:href="@{/admin/product(page=${productPage.number + 1}, sortDirection=${sortDirection}, sortField=${sortField}, name=${name})}">Next</a>
+							</li>
+							<li class="page-item"
+								th:if="${productPage.number < productPage.totalPages - 1}">
+								<a
+								th:href="@{/admin/product(page=${productPage.totalPages - 1}, sortDirection=${sortDirection}, sortField=${sortField}, name=${name})}">Last</a>
+							</li>
+						</ul>
+					</div>
+
+					<main role="main" class="col-md-8 ml-sm-auto col-lg-12">
+						<form class="form" th:object="${productDTO}"
+							th:action="@{/admin/product/add}" method="post"
+							enctype='multipart/form-data'>
+							<h2>Thêm Sản Phẩm</h2>
+							<div class="row">
+								<table
+									style="border-collapse: separate; border-spacing: 15px 10px; margin-left: 60px;"
+									class="col-md-6">
+									<tr>
+										<th>Tên loại sản phẩm:</th>
+										<td><input type="text" th:field="*{name}"
+											class="form-control" required></td>
+									</tr>
+									<tr>
+										<th>Giá:</th>
+										<td><input type="text" th:field="*{price}"
+											class="form-control" required></td>
+									</tr>
+									<tr>
+										<th>Giá Giảm:</th>
+										<td><input type="text" th:field="*{discount}"
+											class="form-control" required></td>
+									</tr>
+									<tr>
+										<th>Nội Dung:</th>
+										<td><input type="text" th:field="*{description}"
+											class="form-control" required></td>
+									</tr>
+									<tr>
+										<th>Đơn vị:</th>
+										<td><input type="text" th:field="*{unit}"
+											class="form-control" required></td>
+									</tr>
+									<tr>
+										<th>Số Lượng:</th>
+										<td><input type="text" th:field="*{quantity}"
+											class="form-control" required></td>
+									</tr>
+									<tr>
+										<th><label th:for="categoryId">Danh mục:</label></th>
+										<td><select name="categoryId">
+												<option th:field="*{categoryId}" th:value="0">Danh
+													mục chính</option>
+												<option th:each="listCateById : ${listCateById}"
+													th:value="${listCateById.id}" th:field="*{categoryId}"
+													th:text="${listCateById.name}"></option>
+										</select></td>
+									</tr>
+									<tr>
+										<th>Hình ảnh:</th>
+										<td><form id="form1" th:for="imageFile">
+												<input type="file" name="imageFile" /> <input type="hidden"
+													th:field="*{id}">
+											</form></td>
+
+									</tr>
+
+									<td>
+										<button type="submit" class="btn btn-primary"
+											style="position: absolute; top: 400px; left: 158px;"
+											value="Thêm">Xác nhận</button>
+									</td>
+								</table>
+
+								<div>
+									<h2>Thông tin chi tiết sản phẩm</h2>
+
+									<div class="col-md-6 mt-3">
+										<div class="  ">
+											<label style="font-weight: bold;" for="description">Description:</label>
+											<textarea style="width: 250px;" type="text" id="description"
+												name="productDetails.description" class="form-control"></textarea>
+										</div>
+										<div class=" ">
+											<label style="font-weight: bold;" for="location">Location:</label>
+											<textarea style="width: 250px;" type="text" id="location"
+												name="productDetails.location" class="form-control"></textarea>
+										</div>
+									</div>
+								</div>
+						</form>
+				</div>
+			</main>
+		</div>
+	</div>
+
+	<footer class="footer mt-5">
+		<div class="container-fluid">
+			<span class="text-muted">© 2023 Quản lý bán hàng</span>
+		</div>
+	</footer>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>

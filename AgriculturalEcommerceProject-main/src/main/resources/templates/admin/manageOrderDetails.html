@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg ">
+        <div class="navbar_left">
+            <a class="navbar-brand" href="/admin/">Quản lý bán hàng</a>
+        </div>
+        <div class="navbar_right">
+            <a href="/thoat">
+               Đăng Xuất
+            </a>
+        </div>
+
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="nav_bar_1 col-md-2 d-none d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/admin/">
+                                <span data-feather="home"></span>
+                                <i class="fa fa-home mr-1" style="font-size:18px"></i>
+                                Trang chủ
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link active" href="/admin/user">
+                                <span data-feather="home"></span>
+                               <i class="fa fa-user mr-1" style="font-size:18px"></i>
+                                Tài Khoản
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/category">
+                                <span data-feather="shopping-cart"></span>
+                               <i class="fa fa-dedent mr-1" style="font-size:18px"></i>
+                                Danh Mục
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/product">
+                                <span data-feather="file"></span>
+                                 <i class="fa fa-shopping-bag mr-1" style="font-size:18px"></i>
+
+                                Sản Phẩm
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/order">
+                                <span data-feather="users"></span>
+                                <i class="fa fa-cart-arrow-down mr-1 " style="font-size:18px"></i>
+                               	Đơn Hàng
+                            </a>
+                        </li>
+                        						<li><a th:href="@{/home}">Quay lại trang mua sắm</a></li>
+                        
+                    </ul>
+                </div>
+            </nav>
+
+           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                          <div class="container">
+
+                <h2>Danh sách chi tiết đặt hàng</h2>
+            
+                <form class="pb-3" th:action="@{/admin/orderDetails}" method="get">
+                    <input type="text" name="name" th:value="${name}" placeholder="Tìm theo tên khách hàng"/>
+                    <button type="submit">Tìm kiếm</button>
+                </form>
+            <div class="row">
+						<div class="col-2">
+							<h5>Sắp xếp theo:</h5>
+						</div>
+						<a th:href="@{/admin/orderDetails(sortField='id',  sortDirection=${sortDirection}, name=${name}, pageSize=${orderDetailsPage.size},  page=${orderDetailsPage.number})}"
+							class="mr-5">ID</a> <a
+							th:href="@{/admin/orderDetails(sortField='price',  sortDirection=${sortDirection}, name=${name}, pageSize=${orderDetailsPage.size},  page=${orderDetailsPage.number})}" class="mr-5">Giá</a>
+					<a th:href="@{/admin/orderDetails(sortField='totalPrice',  sortDirection=${sortDirection}, name=${name}, pageSize=${orderDetailsPage.size},  page=${orderDetailsPage.number})}"
+							class="mr-5">Tổng giá</a>
+					
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<a
+							th:href="@{/admin/orderDetails(sortField=${sortField},  sortDirection='asc', name=${name}, pageSize=${orderDetailsPage.size},  page=${orderDetailsPage.number})}"
+							class="mr-5">Tăng dần</a> <a
+							th:href="@{/admin/orderDetails(sortField=${sortField},  sortDirection='desc', name=${name}, pageSize=${orderDetailsPage.size},  page=${orderDetailsPage.number})}">Giảm
+							dần</a>
+					</div>
+                <table class="table table-striped table-borderDetailsed table-sm"
+                    cellspacing="0" width="100%">
+                      <thead class="thead-dark">
+                        <tr>
+                            <th><a 
+                                th:href="@{/admin/orderDetails(sortField='id',  sortDirection=${sortDirection}, name=${name}, pageSize=${orderDetailsPage.size},  page=${orderDetailsPage.number})}"
+                                class="th-sm">ID</a></th>
+                            <th><a
+                                th:href="@{/admin/orderDetails(sortField='order',  sortDirection=${sortDirection}, name=${name}, pageSize=${orderDetailsPage.size},  page=${orderDetailsPage.number})}"
+                                class="th-sm">Tên khách</a></th>
+                            <th class="th-sm">Giá</th>
+            
+            
+                            <th class="th-sm">Tên sản phẩm</th>
+                            <th class="th-sm">Số lượng</th>
+                            <th class="th-sm">Tổng giá</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="orderDetails : ${orderDetailsPage}">
+                            <td th:text="${orderDetails.id}"></td>
+                            <td th:text="${orderDetails.order.user.username}"></td>
+                            <td th:text="${orderDetails.price}"></td>
+                            <td th:text="${orderDetails.order.user.username}"></td>
+                            <td th:text="${orderDetails.quantity}"></td>
+                            <td th:text="${orderDetails.totalPrice}"></td>
+                            
+            
+            
+            
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <ul class="pagination">
+                        <li class="page-item" th:if="${orderDetailsPage.number > 0}"><a
+                            th:href="@{/admin/orderDetails(page=0, sortDirection=${sortDirection}, sortField=${sortField},  name=${name})}">First</a>
+                        </li>
+                        <li class="page-item" th:if="${orderDetailsPage.hasPrevious()}"><a
+                            th:href="@{/admin/orderDetails(page=${orderDetailsPage.number - 1}, sortDirection=${sortDirection}, sortField=${sortField}, name=${name})}">Previous</a>
+                        </li>
+                        <li class="page-item"
+                            th:each="i : ${#numbers.sequence(0, orderDetailsPage.totalPages - 1)}">
+                            <a
+                            th:href="@{/admin/orderDetails(page=${i}, sortDirection=${sortDirection}, sortField=${sortField}, name=${name})}"
+                            th:classappend="${i == orderDetailsPage.number ? 'active' : ''}"
+                            th:text="${i + 1}"></a>
+                        </li>
+                        <li class="page-item" th:if="${orderDetailsPage.hasNext()}"><a
+                            th:href="@{/admin/orderDetails(page=${orderDetailsPage.number + 1}, sortDirection=${sortDirection}, sortField=${sortField}, name=${name})}">Next</a>
+                        </li>
+                        <li class="page-item"
+                            th:if="${orderDetailsPage.number < orderDetailsPage.totalPages - 1}"><a
+                            th:href="@{/admin/orderDetails(page=${orderDetailsPage.totalPages - 1}, sortDirection=${sortDirection}, sortField=${sortField}, name=${name})}">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            
+          
+            </main>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <span class="text-muted">© 2023 Quản lý bán hàng</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
